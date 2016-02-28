@@ -1,25 +1,39 @@
 package com.pakwochan.ga;
 
-public class GeneticAlgorithmContext {
+import java.util.List;
 
-	private int iteration = 0;
+import com.pakwochan.ga.model.Population;
+
+public class GeneticAlgorithmContext<M> {
+
+	private int currentIteration = 1;
 	
-	private int eliteSize = 1;
+	private List<M> initialData;
 	
-	public int getEliteSize() {
-		return eliteSize;
+	private Population<M> currentPopulation;
+	
+	public int getCurrentIteration() {
+		return currentIteration;
 	}
 
-	public void setEliteSize(int eliteSize) {
-		this.eliteSize = eliteSize;
+	public void setCurrentIteration(int currentIteration) {
+		this.currentIteration = currentIteration;
 	}
 
-	public int getIteration() {
-		return iteration;
+	public List<M> getInitialData() {
+		return initialData;
 	}
 
-	public void setIteration(int iteration) {
-		this.iteration = iteration;
+	public void setInitialData(List<M> initialData) {
+		this.initialData = initialData;
+	}
+
+	public Population<M> getCurrentPopulation() {
+		return currentPopulation;
+	}
+
+	public void setCurrentPopulation(Population<M> currentPopulation) {
+		this.currentPopulation = currentPopulation;
 	}
 	
 }

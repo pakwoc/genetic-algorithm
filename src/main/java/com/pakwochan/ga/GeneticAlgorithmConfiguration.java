@@ -1,35 +1,57 @@
 package com.pakwochan.ga;
 
-import com.pakwochan.ga.termination.IternationTerminationStrategy;
-import com.pakwochan.ga.termination.TerminationDecider;
+import com.pakwochan.ga.listener.TerminationListener;
+import com.pakwochan.ga.listener.impl.FixEliteSizeListener;
+import com.pakwochan.ga.listener.impl.IternationTerminationListener;
+import com.pakwochan.ga.model.IndividualFactory;
 
-public class GeneticAlgorithmConfiguration {
+public class GeneticAlgorithmConfiguration<M> {
 
-	private GeneticAlgorithmContext context  = new GeneticAlgorithmContext();
+	public static final int DEFAULT_ITERATION = 1000;
 	
-	private TerminationDecider terminator = new IternationTerminationStrategy(1000);
+	public static final int DEFAULT_ELITE_SIZE = 1;
 	
-	public GeneticAlgorithm build(){
-		GeneticAlgorithm ga = new GeneticAlgorithm();
+	private GeneticAlgorithmContext<M> context  = new GeneticAlgorithmContext<>();
+	
+	private TerminationListener<M> terminator = new IternationTerminationListener<M>(DEFAULT_ITERATION);
+	
+	private FixEliteSizeListener<M> eliteSizeListener = new FixEliteSizeListener<>(DEFAULT_ELITE_SIZE);
+	
+	private IndividualFactory<M> individualFactory;
+	
+	public GeneticAlgorithmConfiguration(IndividualFactory<M> individualFactory){
+		this.individualFactory = individualFactory;
+	}
+	
+	public GeneticAlgorithm<M> build(){
+		GeneticAlgorithm<M> ga = new GeneticAlgorithm<>();
+		ga.setContext(context);
 		return ga;
 	}
 	
-	public TerminationDecider getTerminator() {
+	public TerminationListener<M> getTerminator() {
 		return terminator;
 	}
 
-	public void setTerminator(TerminationDecider terminator) {
+	public void setTerminator(TerminationListener<M> terminator) {
 		this.terminator = terminator;
 	}
 
-	public GeneticAlgorithmConfiguration setEliteSize(int eliteSize){
-		context.setEliteSize(eliteSize);
+	public GeneticAlgorithmConfiguration<M> setIteration(int iteration){
+		getContext().setCurrentIteration(iteration);
 		return this;
 	}
-	
-	public GeneticAlgorithmConfiguration setIteration(int iteration){
-		context.setIteration(iteration);
-		return this;
+
+	public GeneticAlgorithmContext<M> getContext() {
+		return context;
 	}
-	
+
+	public FixEliteSizeListener<M> getEliteSizeListener() {
+		return eliteSizeListener;
+	}
+
+	public void setEliteSizeListener(FixEliteSizeListener<M> eliteSizeListener) {
+		this.eliteSizeListener = eliteSizeListener;
+	}
+
 }

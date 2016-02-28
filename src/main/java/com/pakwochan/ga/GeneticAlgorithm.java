@@ -1,29 +1,19 @@
 package com.pakwochan.ga;
 
-public class GeneticAlgorithm {
+public class GeneticAlgorithm<M> {
 
-	private int eliteSize;
-	
-	private int iteration;
+	private GeneticAlgorithmContext<M> context;
 	
 	public void evolve(){
 		//TODO
 	}
 
-	public int getIteration() {
-		return iteration;
+	public GeneticAlgorithmContext<M> getContext() {
+		return context;
 	}
 
-	public void setIteration(int iteration) {
-		this.iteration = iteration;
-	}
-	
-	public int getEliteSize() {
-		return eliteSize;
-	}
-
-	public void setEliteSize(int eliteSize) {
-		this.eliteSize = eliteSize;
+	public void setContext(GeneticAlgorithmContext<M> context) {
+		this.context = context;
 	}
 
 }
